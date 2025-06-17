@@ -26,7 +26,8 @@ import os
 from dotenv import load_dotenv
 
 # start back end server with: uvicorn main:app --reload
-load_dotenv() 
+if not os.getenv("DATABASE_URL"):
+    load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 @asynccontextmanager

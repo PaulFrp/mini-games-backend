@@ -2,7 +2,8 @@ from itsdangerous import Signer
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+if not os.getenv("DATABASE_URL"):
+    load_dotenv()
 
 session_secret = os.getenv("SESSION_SECRET")
 if session_secret is None:

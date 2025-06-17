@@ -4,7 +4,8 @@ from models import Base
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+if not os.getenv("DATABASE_URL"):
+    load_dotenv()
 
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
 
