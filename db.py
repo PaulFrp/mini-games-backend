@@ -6,8 +6,12 @@ import os
 
 if not os.getenv("DATABASE_URL"):
     load_dotenv()
+    
+url = os.environ.get("DATABASE_URL")
+if url.startswith("postgres://"):
+    url = url.replace("postgres://", "postgresql://", 1)
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+SQLALCHEMY_DATABASE_URL = url
 
 # Utilisation conditionnelle de connect_args uniquement pour SQLite
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
