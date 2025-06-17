@@ -106,7 +106,7 @@ def join_room_with_username(
         key="room_session",
         value=cookie_value,
         httponly=True,
-        samesite="lax",
+        samesite="none",
         secure=True,  # Set to True in production with HTTPS or false for local testing
     )
 
