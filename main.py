@@ -186,7 +186,7 @@ def start_voting_game(room_id: int, players: list[str]):
         "question": next_question,
         "votes": {},
         "start_time": time.time(),
-        "duration": 10,  # voting duration
+        "duration": 20,  # voting duration
         "finished": False,
         "round_end_time": None,
     }
@@ -318,7 +318,7 @@ async def cleanup_empty_rooms_task():
         await asyncio.sleep(30)
         with SessionLocal() as db:
             now = datetime.now(timezone.utc)
-            timeout = now - timedelta(minutes=5)
+            timeout = now - timedelta(minutes=120)
 
             rooms = db.query(Room).options(joinedload(Room.players)).all()
             for room in rooms:
