@@ -107,7 +107,7 @@ def join_room_with_username(
         value=cookie_value,
         httponly=True,
         samesite="lax",
-        secure=False,  # Set to True in production with HTTPS
+        secure=True,  # Set to True in production with HTTPS or false for local testing
     )
 
     return {"message": f"User '{data.username}' joined room {room_id}"}
