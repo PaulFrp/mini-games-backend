@@ -6,7 +6,7 @@ import os
 
 if not os.getenv("DATABASE_URL"):
     load_dotenv()
-    
+
 url = os.environ.get("DATABASE_URL")
 if url.startswith("postgres://"):
     url = url.replace("postgres://", "postgresql://", 1)
@@ -22,7 +22,7 @@ else:
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine, checkfirst=True)
 
 def get_db():
     db = SessionLocal()
