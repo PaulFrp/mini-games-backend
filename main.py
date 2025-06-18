@@ -123,8 +123,10 @@ def get_messages(
         room_id = signer.unsign(room_session).decode()
         room = db.query(Room).filter(Room.id == int(room_id)).first()
         if not room:
+            print(f"[DEBUG] x_client_id: {x_client_id} room_session: {room_session}")
             return {"error": "Room not found"}
-
+        
+        print(f"[DEBUG] x_client_id: {x_client_id} room_session: {room_session}")
         is_creator = room.creator == x_client_id
         return {
             "room_id": room_id,
