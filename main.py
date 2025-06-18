@@ -113,6 +113,8 @@ def join_room_with_username(
     return {"message": f"User '{data.username}' joined room {room_id}"}
 
 
+import traceback
+
 @app.get("/room_messages")
 def get_messages(
     room_session: str = Cookie(None),
@@ -120,20 +122,23 @@ def get_messages(
     db: Session = Depends(get_db),
 ):
     try:
+        print(f"[DEBUG] Attempting to unsign: {room_session}")
         room_id = signer.unsign(room_session).decode()
         room = db.query(Room).filter(Room.id == int(room_id)).first()
         if not room:
-            print(f"[DEBUG] x_client_id: {x_client_id} room_session: {room_session}")
+            print(f"[DEBUG] Room not found for room_id {room_id}")
             return {"error": "Room not found"}
         
-        print(f"[DEBUG] x_client_id: {x_client_id} room_session: {room_session}")
+        print(f"[DEBUG] Successfully fetched room {room_id} for client {x_client_id}")
         is_creator = room.creator == x_client_id
         return {
             "room_id": room_id,
             "messages": [f"Welcome to room {room_id}!"],
             "is_creator": is_creator,
         }
-    except Exception:
+    except Exception as e:
+        print(f"[ERROR] Exception in /room_messages: {e}")
+        traceback.print_exc()
         return {"error": "Invalid or missing session"}
 
 
