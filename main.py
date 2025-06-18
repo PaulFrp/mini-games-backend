@@ -69,14 +69,14 @@ def create_room(response: Response, db: Session = Depends(get_db),  x_client_id:
     db.commit()
     db.refresh(room)
     cookie_value = signer.sign(str(room.id)).decode()
-    response.set_cookie(key="room_session", value=cookie_value, httponly=True, samesite="lax", secure=False)
+    response.set_cookie(key="room_session", value=cookie_value, httponly=True, samesite="none", secure=True)
     return {"room_id": room.id}
 
 # This join room function is deprecated and will be removed in the future.
 @app.post("/join_room/{room_id}")
 def join_room(room_id: int, response: Response):
     cookie_value = signer.sign(str(room_id)).decode()
-    response.set_cookie(key="room_session", value=cookie_value, httponly=True, samesite="lax", secure=False)
+    response.set_cookie(key="room_session", value=cookie_value, httponly=True, samesite="none", secure=True)
     return {"message": f"Joined room {room_id}"}
 
 
