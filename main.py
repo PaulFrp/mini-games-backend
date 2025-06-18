@@ -51,7 +51,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://paul-mini-games-228906304104.herokuapp.com"],  # frontend
+    allow_origins= ["http://localhost:3000"], #["https://paul-mini-games-228906304104.herokuapp.com"],  # frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -157,10 +157,11 @@ async def start_game(room_id: int, x_client_id: str = Header(None), db: Session 
     return {"status": "game started", "room_id": room_id}
 
 @app.get("/room_status/{room_id}")
-async def room_status(room_id: int):
-    status = rooms_status.get(room_id, "waiting")
-    return {"room_id": room_id, "status": status}
-
+async def room_status(room_id: int, db: Session = Depends(get_db)):
+    room = db.query(Room).filter(Room.id == room_id).first()
+    if not room:
+        raise HTTPException(status_code=404, detail="Room not found")
+    return {"room_id": room_id, "status": room.status}
 
 
 # Store game state in memory
