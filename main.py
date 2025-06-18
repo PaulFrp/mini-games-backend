@@ -51,7 +51,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins= ["http://localhost:3000"], #["https://paul-mini-games-228906304104.herokuapp.com"],  # frontend
+    allow_origins= ["https://paul-mini-games-228906304104.herokuapp.com"], # ["http://localhost:3000"],  # frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -206,6 +206,7 @@ def game_status(room_id: int, db: Session = Depends(get_db), request: Request = 
             db.commit()
 
     game = games.get(room_id)
+    print(f"[DEBUG game_status] game = {game}")  # <= AJOUT
     if not game:
         return {"status": "no_game"}
 
@@ -271,6 +272,7 @@ def next_question(room_id: int, db: Session = Depends(get_db), request: Request 
         now = time.time()
         game["question"] = next_question
         game["votes"] = {}
+        print(f"[DEBUG next_question] Next question: {game['question']}")
         game["start_time"] = now
         game["finished"] = False
         game["round_end_time"] = None
