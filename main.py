@@ -51,7 +51,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins= ["https://paul-mini-games-228906304104.herokuapp.com"], # ["http://localhost:3000"],  # frontend
+    allow_origins= ["https://www.paul-mini-games.fr"], # ["http://localhost:3000"],  # frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
