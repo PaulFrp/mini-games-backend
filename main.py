@@ -51,7 +51,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins= ["https://www.paul-mini-games.fr"], # ["http://localhost:3000"],  # frontend
+    allow_origins=["https://www.paul-mini-games.fr"],# ["http://localhost:3000"],,  # frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -120,11 +120,14 @@ def get_messages(
     room_session: str = Cookie(None),
     x_client_id: str = Header(None),
     db: Session = Depends(get_db),
+    
 ):
     try:
         print(f"[DEBUG] Attempting to unsign: {room_session}")
         room_id = signer.unsign(room_session).decode()
         room = db.query(Room).filter(Room.id == int(room_id)).first()
+        players = db.query(Player).filter(Player.room_id == room_id).all()
+        player_map = { str(p.user_id): p.username for p in players }
         if not room:
             print(f"[DEBUG] Room not found for room_id {room_id}")
             return {"error": "Room not found"}
@@ -135,6 +138,7 @@ def get_messages(
             "room_id": room_id,
             "messages": [f"Welcome to room {room_id}!"],
             "is_creator": is_creator,
+            "player_map": player_map,
         }
     except Exception as e:
         print(f"[ERROR] Exception in /room_messages: {e}")
