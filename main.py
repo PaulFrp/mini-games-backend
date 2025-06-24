@@ -51,7 +51,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # ["https://www.paul-mini-games.fr"]  # frontend
+    allow_origins=["https://www.paul-mini-games.fr"],  # ["http://localhost:3000"],  frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
