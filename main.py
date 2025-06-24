@@ -51,7 +51,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://www.paul-mini-games.fr"],# ["http://localhost:3000"],,  # frontend
+    allow_origins=["http://localhost:3000"], # ["https://www.paul-mini-games.fr"]  # frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -182,7 +182,7 @@ class VoteRequest(BaseModel):
     voter_id: str
     vote_for: str  # player name/id
 
-with open("questions.json") as f:
+with open("questions.json", encoding="utf-8") as f:
     QUESTION_POOL = json.load(f)
 
 games = {}  # room_id -> game state
@@ -216,8 +216,7 @@ def game_status(room_id: int, db: Session = Depends(get_db), request: Request = 
             print(f"[Ping] Updated last_seen for user {player.user_id} in room {room_id}")
             db.commit()
 
-    game = games.get(room_id)
-    print(f"[DEBUG game_status] game = {game}")  # <= AJOUT
+    game = games.get(room_id) 
     if not game:
         return {"status": "no_game"}
 
@@ -283,7 +282,6 @@ def next_question(room_id: int, db: Session = Depends(get_db), request: Request 
         now = time.time()
         game["question"] = next_question
         game["votes"] = {}
-        print(f"[DEBUG next_question] Next question: {game['question']}")
         game["start_time"] = now
         game["finished"] = False
         game["round_end_time"] = None
