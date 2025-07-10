@@ -51,6 +51,9 @@ def meme_game_status_logic(room_id, request, db):
         game["phase"] = "results"
 
     # === Phase responses ===
+    if "submissions" not in game:
+        game["submissions"] = {}
+
     if game["phase"] == "captioning":
         return {
             "status": "captioning",
@@ -60,13 +63,18 @@ def meme_game_status_logic(room_id, request, db):
             "remaining": remaining
         }
 
-    elif game["phase"] == "voting":
+    if game["phase"] == "voting":
         return {
             "status": "voting",
-            "current_meme": game["current_meme"],
-            "captions": game["captions"],  # Dict of player_id -> caption
-            "votes_count": len(game["votes"]),
-            "remaining": remaining
+            "submissions": [
+                {
+                    "user_id": player_id,
+                    "meme": sub["meme"],
+                    "captions": sub["captions"],
+                }
+                for player_id, sub in game["submissions"].items()
+            ],
+            "remaining": remaining,
         }
 
     elif game["phase"] == "results":

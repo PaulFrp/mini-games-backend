@@ -38,6 +38,16 @@ def submit_caption(room_id: int, req: CaptionRequest):
         raise HTTPException(status_code=400, detail="Caption count does not match slots")
     
     game["captions"][req.player_id] = req.captions
+
+    #issue in the submissions, the meme_name does not seem to have been changed
+    if req.player_id not in game["submissions"]:
+        game["submissions"][req.player_id] = {
+            "meme": game["current_meme"],
+            "captions": req.captions,
+        }
+    else:
+        game["submissions"][req.player_id]["captions"] = req.captions
+
     return {"status": "caption_received"}
 
 @router.post("/vote/{room_id}")
@@ -47,3 +57,10 @@ def vote(room_id: int, vote: VoteRequest):
         raise HTTPException(status_code=400, detail="Voting is not active")
     game["votes"][vote.voter_id] = vote.vote_for
     return {"message": "Vote registered"}
+
+from app.game.meme import MEME_POOL  # import it
+
+@router.get("/templates")
+def get_meme_templates():
+    print("MEME_POOL", MEME_POOL)
+    return MEME_POOL
