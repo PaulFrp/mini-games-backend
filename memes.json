@@ -3,27 +3,22 @@
     "id": "biche_brouette",
     "filename": "biche_brouette.JPG",
     "caption_slots": [
-      {"x": 50, "y": 150, "width": 100, "height": 20},
-      {"x": 180, "y": 150, "width": 100, "height": 20},
-      {"x": 310, "y": 150, "width": 100, "height": 20},
-      {"x": 450, "y": 150, "width": 100, "height": 20}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "biche",
     "filename": "biche.jpg",
     "caption_slots": [
-      {"x": 280, "y": 70, "width": 100, "height": 20},
-      {"x": 370, "y": 160, "width": 100, "height": 20}
+      {"x": 280, "y": 40, "width": 200, "height": 40},
+      {"x": 370, "y": 160, "width": 200, "height": 40}
     ]
   },
   {
     "id": "cage_gorilles",
     "filename": "cage_gorilles.JPG",
     "caption_slots": [
-      {"x": 200, "y": 150, "width": 100, "height": 20},
-      {"x": 320, "y": 150, "width": 100, "height": 20},
-      {"x": 170, "y": 230, "width": 100, "height": 20}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
@@ -44,8 +39,7 @@
     "id": "come_cul",
     "filename": "come_cul.jpg",
     "caption_slots": [
-      {"x": 220, "y": 70, "width": 200, "height": 30},
-      {"x": 130, "y": 230, "width": 200, "height": 40}
+      {"x": 220, "y": 70, "width": 200, "height": 30}
     ]
   },
   {
@@ -76,42 +70,42 @@
     "id": "maia_vibing",
     "filename": "maia_vibing.JPG",
     "caption_slots": [
-      {"x": 150, "y": 70, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "max_salut",
     "filename": "max_salut.png",
     "caption_slots": [
-      {"x": 150, "y": 110, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "maxime_napoleon",
     "filename": "maxime_napoleon.JPG",
     "caption_slots": [
-      {"x": 130, "y": 130, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "papier_toilettes",
     "filename": "papier_toilettes.JPG",
     "caption_slots": [
-      {"x": 170, "y": 50, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "paul_assis",
     "filename": "paul_assis.jpg",
     "caption_slots": [
-      {"x": 200, "y": 50, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "paul_chaise",
     "filename": "paul_chaise.jpg",
     "caption_slots": [
-      {"x": 70, "y": 170, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
@@ -134,15 +128,14 @@
     "id": "paul_licorne",
     "filename": "paul_licorne.jpg",
     "caption_slots": [
-      {"x": 20, "y": 100, "width": 200, "height": 30},
-      {"x": 300, "y": 70, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "paul_nouvel_an",
     "filename": "paul_nouvel_an.jpg",
     "caption_slots": [
-      {"x": 220, "y": 100, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
@@ -157,21 +150,21 @@
     "id": "paul_sasha_peignoir",
     "filename": "paul_sasha_peignoir.jpg",
     "caption_slots": [
-      {"x": 250, "y": 50, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "pose_poutre",
     "filename": "pose_poutre.JPG",
     "caption_slots": [
-      {"x": 200, "y": 150, "width": 200, "height": 30}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
     "id": "poutre_bordel",
     "filename": "poutre_bordel.jpg",
     "caption_slots": [
-      {"x": 150, "y": 20, "width": 300, "height": 40}
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   },
   {
@@ -186,6 +179,261 @@
     "filename": "sasha_dort.jpg",
     "caption_slots": [
       {"x": 10, "y": 30, "width": 200, "height": 30}
+    ]
+  },
+
+
+ 
+    {
+    "id": "come_yeux_clopes",
+    "filename": "come_yeux_clopes.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "girl_men.jpg",
+    "filename": "girl_men.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "max_alcool.jpg",
+    "filename": "max_alcool.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "max_dort.JPG",
+    "filename": "max_dort.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "max_grogne.JPG",
+    "filename": "max_grogne.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "max_king.JPG",
+    "filename": "max_king.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "max_russe.jpg",
+    "filename": "max_russe.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "max_stare.JPG",
+    "filename": "max_stare.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "maxime_bd.JPG",
+    "filename": "maxime_bd.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "maxime_penis.JPG",
+    "filename": "maxime_penis.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_bob.JPG",
+    "filename": "paul_bob.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_boit.jpg",
+    "filename": "paul_boit.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_calecon.jpg",
+    "filename": "paul_calecon.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 320, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_clochard.JPG",
+    "filename": "paul_clochard.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_coeur.JPG",
+    "filename": "paul_coeur.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_collier_barbe.JPG",
+    "filename": "paul_collier_barbe.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_dodo_sasha.jpg",
+    "filename": "paul_dodo_sasha.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_encule_come.JPG",
+    "filename": "paul_encule_come.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_fesses_sasha.JPG",
+    "filename": "paul_fesses_sasha.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_joint.JPG",
+    "filename": "paul_joint.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_malade.JPG",
+    "filename": "paul_malade.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_stare.JPG",
+    "filename": "paul_stare.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "paul_trans.JPG",
+    "filename": "paul_trans.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "plan_a_3.JPG",
+    "filename": "plan_a_3.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sahsa_bieres.JPG",
+    "filename": "sahsa_bieres.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sahsa_bob.JPG",
+    "filename": "sahsa_bob.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_blanc.JPG",
+    "filename": "sasha_blanc.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_bretzel.JPG",
+    "filename": "sasha_bretzel.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_chevre.JPG",
+    "filename": "sasha_chevre.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_clopes.JPG",
+    "filename": "sasha_clopes.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_couette.JPG",
+    "filename": "sasha_couette.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_donut.jpg",
+    "filename": "sasha_donut.jpg",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_dum.JPG",
+    "filename": "sasha_dum.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_king.JPG",
+    "filename": "sasha_king.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_max_cravates.JPG",
+    "filename": "sasha_max_cravates.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
+    ]
+  },
+    {
+    "id": "sasha_trans.JPG",
+    "filename": "sasha_trans.JPG",
+    "caption_slots": [
+      {"x": 170, "y": 20, "width": 300, "height": 50}
     ]
   }
   
