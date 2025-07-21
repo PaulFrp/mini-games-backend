@@ -23,7 +23,7 @@ def start_meme_game(room_id: int, players: list[str], creator_id: str):
         "votes": {},
         "phase": "captioning",
         "start_time": time.time(),
-        "duration": 10,
+        "duration": 60,
         "points":{},
         "submissions": {}
     }
@@ -61,7 +61,7 @@ async def get_game_status_logic(room_id, client_id, db):
     if game["phase"] == "captioning" and remaining <= 0:
         game["phase"] = "voting"
         game["start_time"] = now
-        game["duration"] = 15
+        game["duration"] = 60
         remaining = game["duration"]
         # 🔔 Broadcast voting phase to all
         await manager.broadcast(room_id, {
@@ -168,7 +168,7 @@ def next_meme_logic(room_id, client_id, db):
             "phase": "captioning",
             "start_time": time.time(),
             "submissions": {},
-            "duration": 10,
+            "duration": 60,
         })
         return {"status": "next_meme", "current_meme": next_meme}
 
