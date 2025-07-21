@@ -7,7 +7,7 @@ from .tasks.cleanup import cleanup_empty_rooms_task
 import asyncio
 import os
 from dotenv import load_dotenv
-from app.game.meme import game_phase_watcher
+
 
 
 
@@ -20,10 +20,9 @@ if not os.getenv("DATABASE_URL"):
 async def lifespan(app: FastAPI):
     init_db()
     cleanup_task = asyncio.create_task(cleanup_empty_rooms_task())
-    game_task = asyncio.create_task(game_phase_watcher())
     yield
         # 🧹 On shutdown
-    for task in (cleanup_task, game_task):
+    for task in (cleanup_task):
         task.cancel()
         try:
             await task
@@ -43,6 +42,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+
 
 
 # Routers

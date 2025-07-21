@@ -9,7 +9,7 @@ from app.game.websockets import manager
 from app.game.meme import MEME_POOL  # import it
 
 
-from app.game.meme import games, start_meme_game, next_meme_logic, game_phase_watcher
+from app.game.meme import games, start_meme_game
 
 
 router = APIRouter()

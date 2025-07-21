@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from app.game.websockets import manager
 from app.db import get_db
 import asyncio
+import logging
 
 with open("memes.json") as f:
     MEME_POOL = json.load(f)
@@ -23,7 +24,8 @@ def start_meme_game(room_id: int, players: list[str], creator_id: str):
         "phase": "captioning",
         "start_time": time.time(),
         "duration": 10,
-        "points":{}
+        "points":{},
+        "submissions": {}
     }
 
 # app/game/meme.py
@@ -172,28 +174,3 @@ def next_meme_logic(room_id, client_id, db):
 
     return {"status": "game_over", "message": "No more memes"}
    
-async def game_phase_watcher():
-    while True:
-        db = next(get_db())  # get a DB session
-
-        for room_id, game in list(games.items()):
-            now = time.time()
-            remaining = game["duration"] - (now - game["start_time"])
-
-            if remaining <= 0:
-                # call your existing logic to advance phase
-                # but get_game_status_logic expects client_id & db,
-                # we'll just pick the creator as client_id for broadcast purposes
-                # (or just pick the first player)
-                client_id = game.get("creator") or (game["players"][0] if game["players"] else None)
-
-                if client_id is not None:
-                    status = await get_game_status_logic(room_id, client_id, db)
-                    # Broadcast updated game state to the room
-                    await manager.broadcast(room_id, {
-                        "type": "game_update",
-                        **status,
-                    })
-
-        await asyncio.sleep(1)  # check every 1 second
-
