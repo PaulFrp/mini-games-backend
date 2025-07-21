@@ -1,33 +1,37 @@
 import json, random, time
 from app.models import Player, Room
 from datetime import datetime, timezone
+from app.game.websockets import manager
+from app.db import get_db
+import asyncio
 
 with open("memes.json") as f:
     MEME_POOL = json.load(f)
 
 games = {}
 
-def start_meme_game(room_id: int, players: list[str]):
+def start_meme_game(room_id: int, players: list[str], creator_id: str):
     meme_pool = MEME_POOL.copy()
     random.shuffle(meme_pool)
     games[room_id] = {
         "players": players,
+        "creator": creator_id,
         "meme_pool": meme_pool,
         "current_meme": meme_pool.pop(),
         "captions": {},
         "votes": {},
         "phase": "captioning",
         "start_time": time.time(),
-        "duration": 60,
+        "duration": 10,
     }
 
 # app/game/meme.py
 
-def meme_game_status_logic(room_id, request, db):
-    client_id = request.headers.get("x-client-id")
+async def get_game_status_logic(room_id, client_id, db):
     player = db.query(Player).filter_by(user_id=client_id, room_id=room_id).first()
     room = db.query(Room).filter_by(id=room_id).first()
     room_creator = room.creator
+
     if player:
         player.last_seen = datetime.now(timezone.utc)
         db.commit()
@@ -36,19 +40,53 @@ def meme_game_status_logic(room_id, request, db):
     if not game:
         return {"status": "no_game"}
 
-    print(f"[DEBUG] Game status for room {room_id}: {game}")
     now = time.time()
     remaining = int(game["duration"] - (now - game["start_time"]))
+
+    # Prepare vote counts & winners - only if in voting or results
+    vote_counts = {}
+    winners = []
+    if game["phase"] in ("voting", "results"):
+        for v in game.get("votes", {}).values():
+            vote_counts[v] = vote_counts.get(v, 0) + 1
+        max_votes = max(vote_counts.values(), default=0)
+        winners = [p for p, c in vote_counts.items() if c == max_votes]
+    
+    
 
     # === Phase switching logic ===
     if game["phase"] == "captioning" and remaining <= 0:
         game["phase"] = "voting"
         game["start_time"] = now
-        game["duration"] = 30  # Set voting phase duration
+        game["duration"] = 30
         remaining = game["duration"]
+        # 🔔 Broadcast voting phase to all
+        await manager.broadcast(room_id, {
+            "type": "game_update",
+            "status": "voting",
+            "submissions": [
+                {
+                    "user_id": player_id,
+                    "meme": sub["meme"],
+                    "captions": sub["captions"],
+                    "username": player_id  # or resolve real username
+                }
+                for player_id, sub in game["submissions"].items()
+            ],
+            "remaining": remaining,
+        })
 
     elif game["phase"] == "voting" and remaining <= 0:
         game["phase"] = "results"
+        # 🔔 Broadcast results
+        await manager.broadcast(room_id, {
+            "type": "game_update",
+            "status": "results",
+            "winners": winners,
+            "votes": game.get("votes", {}),
+            "captions": game.get("captions", {}),
+            "can_proceed": player and client_id == room_creator,
+        })
 
     # === Phase responses ===
     if "submissions" not in game:
@@ -58,9 +96,10 @@ def meme_game_status_logic(room_id, request, db):
         return {
             "status": "captioning",
             "current_meme": game["current_meme"],
-            "captions_submitted": len(game["captions"]),
-            "players": game["players"],
-            "remaining": remaining
+            "captions_submitted": len(game.get("captions", {})),
+            "players": game.get("players", []),
+            "remaining": remaining,
+            "is_creator": client_id == room_creator,
         }
 
     if game["phase"] == "voting":
@@ -75,27 +114,24 @@ def meme_game_status_logic(room_id, request, db):
                 for player_id, sub in game["submissions"].items()
             ],
             "remaining": remaining,
+            "is_creator": client_id == room_creator,
         }
 
-    elif game["phase"] == "results":
-        vote_counts = {}
-        for v in game["votes"].values():
-            vote_counts[v] = vote_counts.get(v, 0) + 1
-        max_votes = max(vote_counts.values(), default=0)
-        winners = [p for p, c in vote_counts.items() if c == max_votes]
+    if game["phase"] == "results":
         return {
             "status": "results",
             "winners": winners,
-            "votes": game["votes"],
-            "captions": game["captions"],
+            "votes": game.get("votes", {}),
+            "captions": game.get("captions", {}),
             "can_proceed": player and client_id == room_creator,
+            "is_creator": client_id == room_creator,
         }
 
     return {"status": "unknown"}
 
 
-def next_meme_logic(room_id, request, db):
-    client_id = request.headers.get("x-client-id")
+
+def next_meme_logic(room_id, client_id, db):
     player = db.query(Player).filter_by(user_id=client_id, room_id=room_id).first()
     room = db.query(Room).filter_by(id=room_id).first()
     room_creator = room.creator
@@ -104,7 +140,7 @@ def next_meme_logic(room_id, request, db):
     if not game or game["phase"] != "results":
         return {"status": "cannot_advance"}
 
-    if not player or not client_id == room_creator:
+    if not player or client_id != room_creator:
         return {"status": "unauthorized"}
 
     if game["meme_pool"]:
@@ -115,8 +151,35 @@ def next_meme_logic(room_id, request, db):
             "votes": {},
             "phase": "captioning",
             "start_time": time.time(),
-            "duration": 60,
+            "submissions": {},
+            "duration": 10,
         })
         return {"status": "next_meme", "current_meme": next_meme}
-    
+
     return {"status": "game_over", "message": "No more memes"}
+
+async def game_phase_watcher():
+    while True:
+        db = next(get_db())  # get a DB session
+
+        for room_id, game in list(games.items()):
+            now = time.time()
+            remaining = game["duration"] - (now - game["start_time"])
+
+            if remaining <= 0:
+                # call your existing logic to advance phase
+                # but get_game_status_logic expects client_id & db,
+                # we'll just pick the creator as client_id for broadcast purposes
+                # (or just pick the first player)
+                client_id = game.get("creator") or (game["players"][0] if game["players"] else None)
+
+                if client_id is not None:
+                    status = await get_game_status_logic(room_id, client_id, db)
+                    # Broadcast updated game state to the room
+                    await manager.broadcast(room_id, {
+                        "type": "game_update",
+                        **status,
+                    })
+
+        await asyncio.sleep(1)  # check every 1 second
+

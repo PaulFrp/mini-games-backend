@@ -2,11 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .db import init_db
 from contextlib import asynccontextmanager
-from .routes import general, room, voting, meme
+from .routes import general, room, voting, meme, websockets
 from .tasks.cleanup import cleanup_empty_rooms_task
 import asyncio
 import os
 from dotenv import load_dotenv
+from app.game.meme import game_phase_watcher
 
 
 
@@ -18,13 +19,17 @@ if not os.getenv("DATABASE_URL"):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
-    task = asyncio.create_task(cleanup_empty_rooms_task())
+    cleanup_task = asyncio.create_task(cleanup_empty_rooms_task())
+    game_task = asyncio.create_task(game_phase_watcher())
     yield
-    task.cancel()
-    try:
-        await task
-    except asyncio.CancelledError:
-        pass
+        # 🧹 On shutdown
+    for task in (cleanup_task, game_task):
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            pass
+
 
 app = FastAPI(lifespan=lifespan)
 
@@ -36,8 +41,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(game_phase_watcher())
+
 # Routers
 app.include_router(general.router)
 app.include_router(room.router)
 app.include_router(voting.router, prefix="/voting")
 app.include_router(meme.router, prefix ="/meme")
+app.include_router(websockets.router)
