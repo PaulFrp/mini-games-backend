@@ -23,6 +23,7 @@ def start_meme_game(room_id: int, players: list[str], creator_id: str):
         "phase": "captioning",
         "start_time": time.time(),
         "duration": 10,
+        "points":{}
     }
 
 # app/game/meme.py
@@ -58,7 +59,7 @@ async def get_game_status_logic(room_id, client_id, db):
     if game["phase"] == "captioning" and remaining <= 0:
         game["phase"] = "voting"
         game["start_time"] = now
-        game["duration"] = 30
+        game["duration"] = 15
         remaining = game["duration"]
         # 🔔 Broadcast voting phase to all
         await manager.broadcast(room_id, {
@@ -118,11 +119,24 @@ async def get_game_status_logic(room_id, client_id, db):
         }
 
     if game["phase"] == "results":
+        # Calculate total points received by each player
+        player_points = {}
+        vote_points = game.get("vote_points", {})
+
+        for voter_id, voted_id in game.get("votes", {}).items():
+            points = vote_points.get(voter_id, 0)  # default to 0 if not found
+            if voted_id in player_points:
+                player_points[voted_id] += points
+            else:
+                player_points[voted_id] = points
+
         return {
             "status": "results",
             "winners": winners,
             "votes": game.get("votes", {}),
             "captions": game.get("captions", {}),
+            "submissions": game.get("submissions", []),
+            "player_points": game.get("player_points", {}),
             "can_proceed": player and client_id == room_creator,
             "is_creator": client_id == room_creator,
         }
@@ -157,7 +171,7 @@ def next_meme_logic(room_id, client_id, db):
         return {"status": "next_meme", "current_meme": next_meme}
 
     return {"status": "game_over", "message": "No more memes"}
-
+   
 async def game_phase_watcher():
     while True:
         db = next(get_db())  # get a DB session

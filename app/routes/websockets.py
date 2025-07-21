@@ -68,19 +68,39 @@ async def websocket_endpoint(websocket: WebSocket, room_id: int):
             # --- 3. Voting submission ---
             elif msg_type == "submit_vote":
                 vote_for = message.get("vote_for")
+                try:
+                    points = int(message.get("points") or 0)
+                except (ValueError, TypeError):
+                    points = 0  # fallback
+                    
+                print(f"Received vote from {client_id} for {vote_for} with points: {points} (type: {type(points)})")
                 game = games.get(room_id)
 
                 if not game or game["phase"] != "voting":
-                    await websocket.send_json({ "error": "Voting is not active" })
+                    await websocket.send_json({"error": "Voting is not active"})
                     continue
 
+                if client_id == vote_for:
+                    await websocket.send_json({"error": "You can't vote for yourself!"})
+                    continue
+
+                if client_id in game["votes"]:
+                    await websocket.send_json({"error": "You already voted"})
+                    continue
+
+                # Register the vote
                 game["votes"][client_id] = vote_for
+
+                # Apply points
+                game.setdefault("player_points", {})
+                game["player_points"][vote_for] = game["player_points"].get(vote_for, 0) + points
 
                 status = await get_game_status_logic(room_id, client_id, db)
                 await manager.broadcast(room_id, {
                     "type": "game_update",
                     **status
                 })
+
 
             # --- 4. Next meme (if game master triggers it) ---
             elif msg_type == "next_meme":
