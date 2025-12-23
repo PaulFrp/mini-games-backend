@@ -35,12 +35,17 @@ app = FastAPI(lifespan=lifespan)
 frontend_urls = os.getenv("FRONTEND_URLS", "http://localhost:3000")
 allowed_origins = [url.strip() for url in frontend_urls.split(",")]
 
+# Log CORS configuration for debugging
+print(f"🌐 CORS allowed origins: {allowed_origins}")
+print(f"🔐 Environment: {'Production' if os.getenv('DATABASE_URL') else 'Development'}")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 

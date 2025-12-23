@@ -9,6 +9,9 @@ router = APIRouter()
 
 @router.post("/create_room")
 def create_room(response: Response, db: Session = Depends(get_db), x_client_id: str = Header(None)):
+    if not x_client_id:
+        return {"error": "x-client-id header is required"}
+    
     room = Room(status="waiting", creator=x_client_id)
     db.add(room)
     db.commit()
