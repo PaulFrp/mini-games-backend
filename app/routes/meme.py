@@ -22,14 +22,21 @@ async def start_game(room_id: int, x_client_id: str = Header(None), db=Depends(g
     
     players = db.query(Player).filter(Player.room_id == room_id).all()
     usernames = [p.username for p in players]
+    print(f"[START_GAME] Room {room_id}: Starting game with {len(players)} players")
     start_meme_game(room_id, usernames, room.creator)
-    await manager.broadcast(room_id, {
+    
+    broadcast_data = {
         "type": "game_update",
         "status": "captioning",
         "players": usernames,
         "current_meme": games[room_id]["current_meme"],
         "remaining": games[room_id]["duration"]
-    })
+    }
+    print(f"[START_GAME] Broadcasting to room {room_id}: {broadcast_data}")
+    print(f"[START_GAME] Active connections in room {room_id}: {len(manager.active_connections.get(room_id, []))}")
+    
+    await manager.broadcast(room_id, broadcast_data)
+    print(f"[START_GAME] Broadcast complete for room {room_id}")
 
     return {"status": "game started"}
 

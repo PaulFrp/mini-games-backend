@@ -1,6 +1,7 @@
 # app/routes/ws.py
 
 import json
+import asyncio
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from app.game.websockets import manager
 from app.db import get_db
@@ -12,7 +13,23 @@ router = APIRouter()
 @router.websocket("/ws/{room_id}")
 async def websocket_endpoint(websocket: WebSocket, room_id: int):
     client_id = websocket.query_params.get("client_id")
+    print(f"[WS] Client {client_id} connecting to room {room_id}")
     await manager.connect(room_id, websocket)
+    print(f"[WS] Client {client_id} connected. Active connections: {len(manager.active_connections.get(room_id, []))}")
+
+    # Keepalive task to prevent Heroku timeout (55s)
+    async def send_keepalive():
+        try:
+            while True:
+                await asyncio.sleep(30)  # Send ping every 30 seconds
+                try:
+                    await websocket.send_json({"type": "ping"})
+                except:
+                    break
+        except asyncio.CancelledError:
+            pass
+
+    keepalive_task = asyncio.create_task(send_keepalive())
 
     try:
         db = next(get_db())
@@ -22,6 +39,11 @@ async def websocket_endpoint(websocket: WebSocket, room_id: int):
             message = json.loads(data)
 
             msg_type = message.get("type")
+
+            # --- 0. Ping/Pong for keepalive ---
+            if msg_type == "pong":
+                # Client responded to ping, connection is alive
+                continue
 
             # --- 1. Game status sync ---
             if msg_type == "get_status":
@@ -138,4 +160,10 @@ async def websocket_endpoint(websocket: WebSocket, room_id: int):
                 await websocket.send_json({ "error": "Unknown message type" })
 
     except WebSocketDisconnect:
+        print(f"[WS] Client {client_id} disconnected from room {room_id}")
+        keepalive_task.cancel()
+        manager.disconnect(room_id, websocket)
+    except Exception as e:
+        print(f"[WS] Error for client {client_id} in room {room_id}: {e}")
+        keepalive_task.cancel()
         manager.disconnect(room_id, websocket)
