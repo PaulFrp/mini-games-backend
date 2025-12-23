@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Cookie, Header
+from fastapi import APIRouter, Depends, Cookie, Header, Query
 from sqlalchemy.orm import Session
 from app.db import get_db
 from app.models import Room, Player
@@ -11,11 +11,24 @@ router = APIRouter()
 def get_messages(
     room_session: str = Cookie(None),
     x_client_id: str = Header(None),
+    x_room_id: str = Header(None),
+    room_id_q: str = Query(None, alias="room_id"),
     db: Session = Depends(get_db),
 ):
     try:
-        print(f"[DEBUG] Attempting to unsign: {room_session}")
-        room_id = signer.unsign(room_session).decode()
+        room_id = None
+        if room_session:
+            print(f"[DEBUG] Attempting to unsign room_session cookie: {room_session}")
+            room_id = signer.unsign(room_session).decode()
+        elif x_room_id:
+            print(f"[DEBUG] Using x-room-id header: {x_room_id}")
+            room_id = x_room_id
+        elif room_id_q:
+            print(f"[DEBUG] Using room_id query param: {room_id_q}")
+            room_id = room_id_q
+        else:
+            print("[DEBUG] No room identifier provided (cookie/header/query)")
+            return {"error": "Missing room identifier"}
         room = db.query(Room).filter(Room.id == int(room_id)).first()
         players = db.query(Player).filter(Player.room_id == room_id).all()
         player_map = {str(p.user_id): p.username for p in players}
