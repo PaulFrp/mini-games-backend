@@ -23,7 +23,7 @@ def start_meme_game(room_id: int, players: list[str], creator_id: str):
         "votes": {},
         "phase": "captioning",
         "start_time": time.time(),
-        "duration": 60,
+        "duration": 10,
         "points":{},
         "submissions": {}
     }
@@ -50,10 +50,19 @@ async def get_game_status_logic(room_id, client_id, db):
     vote_counts = {}
     winners = []
     if game["phase"] in ("voting", "results"):
+        # Count votes for display purposes
         for v in game.get("votes", {}).values():
             vote_counts[v] = vote_counts.get(v, 0) + 1
-        max_votes = max(vote_counts.values(), default=0)
-        winners = [p for p, c in vote_counts.items() if c == max_votes]
+        
+        # Calculate winners based on POINTS, not vote count
+        player_points = game.get("player_points", {})
+        if player_points:
+            max_points = max(player_points.values(), default=0)
+            winners = [p for p, pts in player_points.items() if pts == max_points]
+        else:
+            # Fallback to vote count if no points system
+            max_votes = max(vote_counts.values(), default=0)
+            winners = [p for p, c in vote_counts.items() if c == max_votes]
     
     
 
@@ -61,9 +70,13 @@ async def get_game_status_logic(room_id, client_id, db):
     if game["phase"] == "captioning" and remaining <= 0:
         game["phase"] = "voting"
         game["start_time"] = now
-        game["duration"] = 60
+        game["duration"] = 10
         remaining = game["duration"]
         # 🔔 Broadcast voting phase to all
+        # Resolve usernames from database
+        players_in_room = db.query(Player).filter_by(room_id=room_id).all()
+        player_id_to_username = {p.user_id: p.username for p in players_in_room}
+        
         await manager.broadcast(room_id, {
             "type": "game_update",
             "status": "voting",
@@ -72,7 +85,7 @@ async def get_game_status_logic(room_id, client_id, db):
                     "user_id": player_id,
                     "meme": sub["meme"],
                     "captions": sub["captions"],
-                    "username": player_id  # or resolve real username
+                    "username": player_id_to_username.get(player_id, player_id)
                 }
                 for player_id, sub in game["submissions"].items()
             ],
@@ -106,6 +119,10 @@ async def get_game_status_logic(room_id, client_id, db):
         }
 
     if game["phase"] == "voting":
+        # Resolve usernames from database
+        players_in_room = db.query(Player).filter_by(room_id=room_id).all()
+        player_id_to_username = {p.user_id: p.username for p in players_in_room}
+        
         return {
             "status": "voting",
             "submissions": [
@@ -113,6 +130,7 @@ async def get_game_status_logic(room_id, client_id, db):
                     "user_id": player_id,
                     "meme": sub["meme"],
                     "captions": sub["captions"],
+                    "username": player_id_to_username.get(player_id, player_id)
                 }
                 for player_id, sub in game["submissions"].items()
             ],
@@ -121,24 +139,29 @@ async def get_game_status_logic(room_id, client_id, db):
         }
 
     if game["phase"] == "results":
-        # Calculate total points received by each player
-        player_points = {}
-        vote_points = game.get("vote_points", {})
-
-        for voter_id, voted_id in game.get("votes", {}).items():
-            points = vote_points.get(voter_id, 0)  # default to 0 if not found
-            if voted_id in player_points:
-                player_points[voted_id] += points
-            else:
-                player_points[voted_id] = points
+        # Use the player_points that were accumulated during voting
+        player_points = game.get("player_points", {})
+        
+        # Resolve usernames from database
+        players_in_room = db.query(Player).filter_by(room_id=room_id).all()
+        player_id_to_username = {p.user_id: p.username for p in players_in_room}
+        
+        # Add usernames to submissions for results display
+        submissions_with_usernames = {
+            player_id: {
+                **sub,
+                "username": player_id_to_username.get(player_id, player_id)
+            }
+            for player_id, sub in game.get("submissions", {}).items()
+        }
 
         return {
             "status": "results",
             "winners": winners,
             "votes": game.get("votes", {}),
             "captions": game.get("captions", {}),
-            "submissions": game.get("submissions", []),
-            "player_points": game.get("player_points", {}),
+            "submissions": submissions_with_usernames,
+            "player_points": player_points,
             "can_proceed": player and client_id == room_creator,
             "is_creator": client_id == room_creator,
         }
@@ -168,7 +191,8 @@ def next_meme_logic(room_id, client_id, db):
             "phase": "captioning",
             "start_time": time.time(),
             "submissions": {},
-            "duration": 60,
+            "player_points": {},  # Reset points for new round
+            "duration": 10,
         })
         return {"status": "next_meme", "current_meme": next_meme}
 

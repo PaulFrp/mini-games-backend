@@ -80,12 +80,13 @@ async def websocket_endpoint(websocket: WebSocket, room_id: int):
                     await websocket.send_json({"error": "Voting is not active"})
                     continue
 
-                if client_id == vote_for:
-                    await websocket.send_json({"error": "You can't vote for yourself!"})
-                    continue
-
+                # Check if already voted FIRST
                 if client_id in game["votes"]:
                     await websocket.send_json({"error": "You already voted"})
+                    continue
+
+                if client_id == vote_for:
+                    await websocket.send_json({"error": "You can't vote for yourself!"})
                     continue
 
                 # Register the vote
