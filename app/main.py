@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import re
 from .db import init_db
 from contextlib import asynccontextmanager
 from .routes import general, room, voting, meme, websockets
@@ -35,13 +36,25 @@ app = FastAPI(lifespan=lifespan)
 frontend_urls = os.getenv("FRONTEND_URLS", "http://localhost:3000")
 allowed_origins = [url.strip() for url in frontend_urls.split(",")]
 
+def build_origin_regex(origins):
+    # Build a regex that matches any origin in the list, with an optional :port suffix
+    patterns = []
+    for url in origins:
+        u = url.rstrip('/')
+        patterns.append(re.escape(u) + r"(?:\:\d+)?")
+    return "(" + "|".join(patterns) + ")"
+
+origin_regex = build_origin_regex(allowed_origins)
+
 # Log CORS configuration for debugging
 print(f"🌐 CORS allowed origins: {allowed_origins}")
+print(f"🧩 CORS origin regex: {origin_regex}")
 print(f"🔐 Environment: {'Production' if os.getenv('DATABASE_URL') else 'Development'}")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
+    allow_origin_regex=origin_regex,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
