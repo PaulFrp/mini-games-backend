@@ -32,6 +32,7 @@ def get_messages(
         room = db.query(Room).filter(Room.id == int(room_id)).first()
         players = db.query(Player).filter(Player.room_id == room_id).all()
         player_map = {str(p.user_id): p.username for p in players}
+        players_list = [p.username for p in players]
         
         if not room:
             print(f"[DEBUG] Room not found for room_id {room_id}")
@@ -44,8 +45,31 @@ def get_messages(
             "messages": [f"Welcome to room {room_id}!"],
             "is_creator": is_creator,
             "player_map": player_map,
+            "players": players_list,
         }
     except Exception as e:
         print(f"[ERROR] Exception in /room_messages: {e}")
         traceback.print_exc()
         return {"error": "Invalid or missing session"}
+
+@router.get("/room_players/{room_id}")
+def get_room_players(room_id: int, x_client_id: str = Header(None), db: Session = Depends(get_db)):
+    """Get the list of players in a room"""
+    try:
+        room = db.query(Room).filter(Room.id == room_id).first()
+        if not room:
+            return {"error": "Room not found"}
+        
+        players = db.query(Player).filter(Player.room_id == room_id).all()
+        player_list = [p.username for p in players]
+        player_map = {str(p.user_id): p.username for p in players}
+        
+        return {
+            "room_id": room_id,
+            "players": player_list,
+            "player_map": player_map,
+            "count": len(player_list)
+        }
+    except Exception as e:
+        print(f"[ERROR] Exception in /room_players: {e}")
+        return {"error": "Failed to fetch players"}

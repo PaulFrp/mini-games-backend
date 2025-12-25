@@ -4,6 +4,8 @@ from app.db import get_db
 from app.models import Room, Player
 from sqlalchemy.orm import Session
 from app.session import signer
+import asyncio
+from app.game.websockets import manager
 
 router = APIRouter()
 
@@ -33,10 +35,37 @@ def join_room_with_username(room_id: int, data: JoinRoomRequest, response: Respo
         db.add(player)
     db.commit()
 
+    # Fetch updated player list
+    all_players = db.query(Player).filter(Player.room_id == room_id).all()
+    player_list = [p.username for p in all_players]
+    player_map = {str(p.user_id): p.username for p in all_players}
+    
+    # Broadcast player joined event via WebSocket
+    async def broadcast_event():
+        try:
+            await manager.broadcast(room_id, {
+                "type": "player_joined",
+                "player": data.username,
+                "players": player_list,
+                "player_map": player_map
+            })
+        except Exception as e:
+            print(f"[WARNING] Failed to broadcast player_joined for room {room_id}: {e}")
+    
+    try:
+        asyncio.create_task(broadcast_event())
+    except Exception as e:
+        print(f"[WARNING] Could not schedule broadcast: {e}")
+
     response.set_cookie(
         key="room_session",
         value=signer.sign(str(room_id)).decode(),
         httponly=True, samesite="none", secure=True
     )
 
-    return {"message": f"User '{data.username}' joined room {room_id}"}
+    return {
+        "message": f"User '{data.username}' joined room {room_id}",
+        "room_id": room_id,
+        "players": player_list,
+        "player_map": player_map
+    }
