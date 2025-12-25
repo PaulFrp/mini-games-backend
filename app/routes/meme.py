@@ -33,6 +33,8 @@ async def start_game(room_id: int, x_client_id: str = Header(None), db=Depends(g
         "remaining": games[room_id]["duration"]
     }
     print(f"[START_GAME] Broadcasting to room {room_id}: {broadcast_data}")
+    print(f"[START_GAME] Active connections dict keys: {list(manager.active_connections.keys())}")
+    print(f"[START_GAME] Looking for room_id: {room_id} (type: {type(room_id).__name__})")
     print(f"[START_GAME] Active connections in room {room_id}: {len(manager.active_connections.get(room_id, []))}")
     
     await manager.broadcast(room_id, broadcast_data)

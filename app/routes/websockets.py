@@ -22,10 +22,12 @@ async def websocket_endpoint(websocket: WebSocket, room_id: int):
     async def send_keepalive():
         try:
             while True:
-                await asyncio.sleep(30)  # Send ping every 30 seconds
+                await asyncio.sleep(20)  # Send ping every 20 seconds
                 try:
                     await websocket.send_json({"type": "ping"})
-                except:
+                    print(f"[MEME_WS] Sent keepalive ping to {client_id}")
+                except Exception as e:
+                    print(f"[MEME_WS] Keepalive failed for {client_id}: {e}")
                     break
         except asyncio.CancelledError:
             pass
@@ -192,10 +194,12 @@ async def cah_websocket_endpoint(websocket: WebSocket, room_id: int):
     async def send_keepalive():
         try:
             while True:
-                await asyncio.sleep(30)
+                await asyncio.sleep(20)  # Send ping every 20 seconds
                 try:
                     await websocket.send_json({"type": "ping"})
-                except:
+                    print(f"[CAH_WS] Sent keepalive ping to {client_id}")
+                except Exception as e:
+                    print(f"[CAH_WS] Keepalive failed for {client_id}: {e}")
                     break
         except asyncio.CancelledError:
             pass

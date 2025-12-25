@@ -54,6 +54,8 @@ async def start_game(room_id: int, x_client_id: str = Header(None), db=Depends(g
     }
     
     print(f"[START_CAH_GAME] Broadcasting to room {room_id}")
+    print(f"[START_CAH_GAME] Active connections dict keys: {list(manager.active_connections.keys())}")
+    print(f"[START_CAH_GAME] Looking for room_id: {room_id} (type: {type(room_id).__name__})")
     active_connections = len(manager.active_connections.get(room_id, []))
     print(f"[START_CAH_GAME] Active WebSocket connections in room {room_id}: {active_connections}")
     await manager.broadcast(room_id, broadcast_data)
