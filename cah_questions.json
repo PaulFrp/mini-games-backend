@@ -1,82 +1,82 @@
 [
   {
     "id": 1,
-    "text": "Why can't I sleep at night?",
+    "text": "Pourquoi ne puis-je pas dormir la nuit ?",
     "blanks": 1
   },
   {
     "id": 2,
-    "text": "I got 99 problems but _____ ain't one.",
+    "text": "J'ai 99 problèmes mais _____ n'en est pas un.",
     "blanks": 1
   },
   {
     "id": 3,
-    "text": "What's that smell?",
+    "text": "Qu'est-ce que cette odeur ?",
     "blanks": 1
   },
   {
     "id": 4,
-    "text": "This is the way the world ends / Not with a bang but with _____.",
+    "text": "C'est comme ça que le monde finit / Non pas avec un bang mais avec _____.",
     "blanks": 1
   },
   {
     "id": 5,
-    "text": "What is Batman's guilty pleasure?",
+    "text": "Quel est le plaisir coupable de Macron ?",
     "blanks": 1
   },
   {
     "id": 6,
-    "text": "TSA guidelines now prohibit _____ on airplanes.",
+    "text": "Les directives de la TSA interdisent désormais _____ dans les avions.",
     "blanks": 1
   },
   {
     "id": 7,
-    "text": "What's a girl's best friend?",
+    "text": "Quel est le meilleur ami d'une fille ?",
     "blanks": 1
   },
   {
     "id": 8,
-    "text": "What's the next Happy Meal toy?",
+    "text": "Quel sera le prochain jouet du Happy Meal ?",
     "blanks": 1
   },
   {
     "id": 9,
-    "text": "_____ is a slippery slope that leads to _____.",
+    "text": "_____ est une pente glissante qui mène à _____.",
     "blanks": 2
   },
   {
     "id": 10,
-    "text": "In a world ravaged by _____, our only solace is _____.",
+    "text": "Dans un monde ravagé par _____, notre seul réconfort est _____.",
     "blanks": 2
   },
   {
     "id": 11,
-    "text": "What's that sound?",
+    "text": "Tous les soirs j'entends _____.",
     "blanks": 1
   },
   {
     "id": 12,
-    "text": "What ended my last relationship?",
+    "text": "_____ a mis fin à ma dernière relation ?",
     "blanks": 1
   },
   {
     "id": 13,
-    "text": "MTV's new reality show features eight washed-up celebrities living with _____.",
+    "text": "_____ est ma plus grande peur. ",
     "blanks": 1
   },
   {
     "id": 14,
-    "text": "I drink to forget _____.",
+    "text": "Je bois pour oublier _____.",
     "blanks": 1
   },
   {
     "id": 15,
-    "text": "I'm sorry, Professor, but I couldn't complete my homework because of _____.",
+    "text": "Je suis désolé Professeur, mais je n'ai pas pu terminer mes devoirs à cause de _____.",
     "blanks": 1
   },
   {
     "id": 16,
-    "text": "Alternative medicine is now embracing the curative powers of _____.",
+    "text": "La médecine alternative adopte désormais les pouvoirs curatifs de _____.",
     "blanks": 1
   },
   {
@@ -86,167 +86,792 @@
   },
   {
     "id": 18,
-    "text": "What did I bring back from Mexico?",
+    "text": "J'ai ramené _____ du Mexique.",
     "blanks": 1
   },
   {
     "id": 19,
-    "text": "When I am the President of the United States, I will create the Department of _____.",
+    "text": "Quand je serai Président, je créerai le Ministère de _____.",
     "blanks": 1
   },
   {
     "id": 20,
-    "text": "What gives me uncontrollable gas?",
+    "text": "_____ me donne des envies de meurtre. ",
     "blanks": 1
   },
   {
     "id": 21,
-    "text": "Maybe she's born with it. Maybe it's _____.",
+    "text": "Peut-être qu'elle est née avec. Peut-être que c'est _____.",
     "blanks": 1
   },
   {
     "id": 22,
-    "text": "What's the most emo?",
+    "text": "La meilleur chose en 39-45 c'était _____.",
     "blanks": 1
   },
   {
     "id": 23,
-    "text": "Life for Native Americans was forever changed when the White Man introduced them to _____.",
+    "text": "La vie des Amérindiens a été à jamais changée quand l'Homme blanc les a présentés à _____.",
     "blanks": 1
   },
   {
     "id": 24,
-    "text": "During sex, I like to think about _____.",
+    "text": "Pendant le sexe, j'aime penser à _____.",
     "blanks": 1
   },
   {
     "id": 25,
-    "text": "What don't you want to find in your Chinese food?",
+    "text": "Qu'est-ce qu'on ne veut pas trouver dans sa nourriture chinoise ?",
     "blanks": 1
   },
   {
     "id": 26,
-    "text": "In M. Night Shyamalan's new movie, Bruce Willis discovers that _____ had really been _____ all along.",
+    "text": "_____ est comme _____, mais en pire.",
     "blanks": 2
   },
   {
     "id": 27,
-    "text": "White people like _____.",
+    "text": "Les Blancs aiment _____.",
     "blanks": 1
   },
   {
     "id": 28,
-    "text": "_____ is _____ and _____ is _____. But nothing beats _____.",
-    "blanks": 5
+    "text": "_____ est _____ . Mais rien ne vaut _____.",
+    "blanks": 3
   },
   {
     "id": 29,
-    "text": "Next from J.K. Rowling: Harry Potter and the Chamber of _____.",
+    "text": "Prochain livre de J.K. Rowling: Harry Potter et la Chambre de _____.",
     "blanks": 1
   },
   {
     "id": 30,
-    "text": "A romantic, candlelit dinner would be incomplete without _____.",
+    "text": "Un dîner romantique aux chandelles serait incomplet sans _____.",
     "blanks": 1
   },
   {
     "id": 31,
-    "text": "The class field trip was completely ruined by _____.",
+    "text": "La sortie scolaire a été complètement gâchée par _____.",
     "blanks": 1
   },
   {
     "id": 32,
-    "text": "Before I run for president, I must destroy all evidence of my involvement with _____.",
+    "text": "Avant de me présenter aux élections, je dois détruire toutes les preuves de mon implication dans _____.",
     "blanks": 1
   },
   {
     "id": 33,
-    "text": "When I was tripping on acid, _____ turned into _____.",
+    "text": "Quand j'ai pris du LSD, _____ s'est transformé en _____.",
     "blanks": 2
   },
   {
     "id": 34,
-    "text": "That's right, I killed _____. How, you ask? _____.",
+    "text": "C'est vrai, j'ai tué _____. Comment, demandez-vous ? _____.",
     "blanks": 2
   },
   {
     "id": 35,
-    "text": "_____ That's how I want to die.",
+    "text": "_____ C'est comme ça que je veux mourir.",
     "blanks": 1
   },
   {
     "id": 36,
-    "text": "What helped the Allies win World War II?",
+    "text": "Qu'est-ce qui a aidé les Alliés à gagner la Seconde Guerre mondiale ?",
     "blanks": 1
   },
   {
     "id": 37,
-    "text": "When Pharaoh remained unmoved, Moses called down a Plague of _____.",
+    "text": "Quand le Pharaon est resté de marbre, Moïse a _____.",
     "blanks": 1
   },
   {
     "id": 38,
-    "text": "Coming to Broadway this season, _____: The Musical.",
+    "text": "Arrivant bientôt à Broadway: _____: La Comédie Musicale.",
     "blanks": 1
   },
   {
     "id": 39,
-    "text": "What's the new fad diet?",
+    "text": "Quel est le nouveau régime à la mode ?",
     "blanks": 1
   },
   {
     "id": 40,
-    "text": "How am I maintaining my relationship status?",
+    "text": "_____ m'aide à maintenir mon couple ?",
     "blanks": 1
   },
   {
     "id": 41,
-    "text": "Studies show that lab rats navigate mazes 50% faster after being exposed to _____.",
+    "text": "_____ m'aide à éjaculer.",
     "blanks": 1
   },
   {
     "id": 42,
-    "text": "I never truly understood _____ until I encountered _____.",
+    "text": "Je n'ai jamais vraiment compris _____ jusqu'à ce que je rencontre _____.",
     "blanks": 2
   },
   {
     "id": 43,
-    "text": "What would grandma find disturbing, yet oddly charming?",
+    "text": "Qu'est-ce que grand-mère trouverait perturbant mais étrangement charmant ?",
     "blanks": 1
   },
   {
     "id": 44,
-    "text": "In his new self-produced album, Kanye West raps over the sounds of _____.",
+    "text": "La meilleur chose à faire pendant une réunion de famille est _____.",
     "blanks": 1
   },
   {
     "id": 45,
-    "text": "What's my secret power?",
+    "text": "La meilleur chose à faire pendant une orgie est _____.",
     "blanks": 1
   },
   {
     "id": 46,
-    "text": "What did Vin Diesel eat for dinner?",
+    "text": "J'ai vu ma soeur manger _____ pour le dîner ?",
     "blanks": 1
   },
   {
     "id": 47,
-    "text": "After Hurricane Katrina, Sean Penn brought _____ to the people of New Orleans.",
+    "text": "Le secret d'une bonne sodomie est _____.",
     "blanks": 1
   },
   {
     "id": 48,
-    "text": "Only two things in life are certain: death and _____.",
+    "text": "Il n'y a que deux choses certaines dans la vie : la mort et _____.",
     "blanks": 1
   },
   {
     "id": 49,
-    "text": "War! What is it good for?",
+    "text": "Le meilleur moyen d'attirer des mineurs est _____.",
     "blanks": 1
   },
   {
     "id": 50,
-    "text": "And the Academy Award for _____ goes to _____.",
+    "text": "Bravo à Sasha pour sa thèse sur _____.",
+    "blanks": 1
+  },
+  {
+    "id": 51,
+    "text": "Mon thérapeute dit que je dois arrêter avec _____.",
+    "blanks": 1
+  },
+  {
+    "id": 52,
+    "text": "_____ : essayez-en un aujourd'hui !",
+    "blanks": 1
+  },
+  {
+    "id": 53,
+    "text": "Qu'est-ce que je cache à mes parents ?",
+    "blanks": 1
+  },
+  {
+    "id": 54,
+    "text": "Dans la prison, _____ vaut son pesant d'or.",
+    "blanks": 1
+  },
+  {
+    "id": 55,
+    "text": "Rin ne fait plus mouiller une femme que _____.",
+    "blanks": 1
+  },
+  {
+    "id": 56,
+    "text": "J'ai été viré de mon boulot à cause de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 57,
+    "text": "_____ est le nouveau _____ !",
     "blanks": 2
+  },
+  {
+    "id": 58,
+    "text": "Lors de ma dernière soirée, quelqu'un a mis _____ dans mon verre.",
+    "blanks": 1
+  },
+  {
+    "id": 59,
+    "text": "Mon grand-père m'a légué _____.",
+    "blanks": 1
+  },
+  {
+    "id": 60,
+    "text": "_____ : approuvé par le Pape !",
+    "blanks": 1
+  },
+  {
+    "id": 61,
+    "text": "Qu'est-ce qui rend les gens inconfortables lors des dîners de famille ?",
+    "blanks": 1
+  },
+  {
+    "id": 62,
+    "text": "Le nouveau documentaire Netflix explore le monde sombre de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 63,
+    "text": "Pourquoi ai-je été banni de la bibliothèque municipale ?",
+    "blanks": 1
+  },
+  {
+    "id": 64,
+    "text": "Quel est le secret d'un mariage réussi ?",
+    "blanks": 1
+  },
+  {
+    "id": 65,
+    "text": "_____ a changé ma vie pour toujours.",
+    "blanks": 1
+  },
+  {
+    "id": 66,
+    "text": "Mon addiction secrète est _____.",
+    "blanks": 1
+  },
+  {
+    "id": 67,
+    "text": "La police m'a attrapé en train de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 68,
+    "text": "Anne frank aurait survécu à l'Holocauste grâce à _____.",
+    "blanks": 1
+  },
+  {
+    "id": 69,
+    "text": "Ma catégorie porno préféré est _____.",
+    "blanks": 1
+  },
+  {
+    "id": 70,
+    "text": "_____ : c'est ce que Jésus ferait.",
+    "blanks": 1
+  },
+  {
+    "id": 71,
+    "text": "_____ n'est pas autorisé par la religion alors que _____ l'est.",
+    "blanks": 2
+  },
+  {
+    "id": 72,
+    "text": "Ma page Wikipédia mentionne mon implication dans _____.",
+    "blanks": 1
+  },
+  {
+    "id": 73,
+    "text": "_____ m'a appris l'importance de _____.",
+    "blanks": 2
+  },
+  {
+    "id": 74,
+    "text": "Le nouveau parfum de Kanye West sent _____.",
+    "blanks": 1
+  },
+  {
+    "id": 75,
+    "text": "Qu'est-ce qui ruine systématiquement Noël ?",
+    "blanks": 1
+  },
+  {
+    "id": 76,
+    "text": "Mon application de rencontre préférée pour trouver _____ est Tinder.",
+    "blanks": 1
+  },
+  {
+    "id": 77,
+    "text": "Je suis sous OQTF depuis que _____ .",
+    "blanks": 1
+  },
+  {
+    "id": 78,
+    "text": "Quand j'étais enfant, j'avais un talent naturel pour _____.",
+    "blanks": 1
+  },
+  {
+    "id": 79,
+    "text": "_____ : une histoire vraie.",
+    "blanks": 1
+  },
+  {
+    "id": 80,
+    "text": "La dernière chose que vous voulez entendre pendant une opération chirurgicale est _____.",
+    "blanks": 1
+  },
+  {
+    "id": 81,
+    "text": "Mon surnom au lycée était _____.",
+    "blanks": 1
+  },
+  {
+    "id": 82,
+    "text": "Le nouveau jeu vidéo controversé simule _____.",
+    "blanks": 1
+  },
+  {
+    "id": 83,
+    "text": "_____ est ma façon préférée de pimenter une soirée.",
+    "blanks": 1
+  },
+  {
+    "id": 84,
+    "text": "Ma mère a découvert _____ dans ma chambre.",
+    "blanks": 1
+  },
+  {
+    "id": 85,
+    "text": "J'aime aller au bar pour _____ .",
+    "blanks": 1
+  },
+  {
+    "id": 86,
+    "text": "_____ n'est pas aussi agréable qu'il n'y paraît.",
+    "blanks": 1
+  },
+  {
+    "id": 87,
+    "text": "_____ me fait regagner foi en l'humanité.",
+    "blanks": 1
+  },
+  {
+    "id": 88,
+    "text": "Mon psychiatre pense que je suis obsédé par _____.",
+    "blanks": 1
+  },
+  {
+    "id": 89,
+    "text": "_____ + _____ = un bon moment.",
+    "blanks": 2
+  },
+  {
+    "id": 90,
+    "text": "A cause de _____ j'ai été expulsé de l'église ?",
+    "blanks": 1
+  },
+  {
+    "id": 91,
+    "text": "_____ est interdit en algérie depuis que _____.",
+    "blanks": 2
+  },
+  {
+    "id": 92,
+    "text": "_____ est interdit en france mais pas au Maroc.",
+    "blanks": 1
+  },
+  {
+    "id": 93,
+    "text": "La NASA a découvert _____ sur Mars.",
+    "blanks": 1
+  },
+  {
+    "id": 94,
+    "text": "Si il y a bien une chose que les nazis savaient faire c'est _____.",
+    "blanks": 1
+  },
+  {
+    "id": 95,
+    "text": "_____ devrait être illégal.",
+    "blanks": 1
+  },
+  {
+    "id": 96,
+    "text": "Qu'est-ce qui rend les funérailles gênantes ?",
+    "blanks": 1
+  },
+  {
+    "id": 97,
+    "text": "Mon passe-temps secret est _____.",
+    "blanks": 1
+  },
+  {
+    "id": 98,
+    "text": "_____ est ma stratégie pour gérer le stress.",
+    "blanks": 1
+  },
+  {
+    "id": 99,
+    "text": "Les féministes détestent _____.",
+    "blanks": 1
+  },
+  {
+    "id": 100,
+    "text": "Quand je suis seul je pense à _____.",
+    "blanks": 1
+  },
+  {
+    "id": 101,
+    "text": "_____ : maintenant avec 50% plus de _____!",
+    "blanks": 2
+  },
+  {
+    "id": 102,
+    "text": "Qu'est-ce qui est pire que _____ ? _____.",
+    "blanks": 2
+  },
+  {
+    "id": 103,
+    "text": "Mon album photo secret est rempli de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 104,
+    "text": "Pourquoi ai-je été arrêté à la frontière ?",
+    "blanks": 1
+  },
+  {
+    "id": 105,
+    "text": "La nouvelle attraction de Disneyland : Le Château de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 106,
+    "text": "_____ est la raison de ma dépression.",
+    "blanks": 1
+  },
+  {
+    "id": 107,
+    "text": "_____ a détruit mon mariage ?",
+    "blanks": 1
+  },
+  {
+    "id": 108,
+    "text": "Mon rituel matinal inclut _____.",
+    "blanks": 1
+  },
+  {
+    "id": 109,
+    "text": "_____ m'a valu un blâme à l'école.",
+    "blanks": 1
+  },
+  {
+    "id": 110,
+    "text": "Le nouveau scandale impliquant _____ a choqué la nation.",
+    "blanks": 1
+  },
+  {
+    "id": 111,
+    "text": "J'ai du mal à regarder ma mère dans les yeux depuis que _____.",
+    "blanks": 1
+  },
+  {
+    "id": 112,
+    "text": "_____ et _____ : un duo parfait.",
+    "blanks": 2
+  },
+  {
+    "id": 113,
+    "text": "Mon conseiller d'orientation m'a dit que j'étais doué pour _____.",
+    "blanks": 1
+  },
+  {
+    "id": 114,
+    "text": "_____ m'a rendu célèbre sur Internet.",
+    "blanks": 1
+  },
+  {
+    "id": 115,
+    "text": "_____ est le meilleur moyen de trouver l'amour.",
+    "blanks": 1
+  },
+  {
+    "id": 116,
+    "text": "_____ est la dernière chose dont je me rappelle avant de balckout.",
+    "blanks": 2
+  },
+  {
+    "id": 117,
+    "text": "_____ est le remède miracle dont personne ne parle.",
+    "blanks": 1
+  },
+  {
+    "id": 118,
+    "text": "_____ fait de moi un incroyable parent.",
+    "blanks": 1
+  },
+  {
+    "id": 119,
+    "text": "Mon compte bancaire a été vidé à cause de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 120,
+    "text": "_____ : pas aussi illégal qu'on pourrait le penser.",
+    "blanks": 1
+  },
+  {
+    "id": 121,
+    "text": "_____ me fait toujours rire aux enterrements ?",
+    "blanks": 1
+  },
+  {
+    "id": 122,
+    "text": "Mon ex m'a quitté à cause de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 123,
+    "text": "_____ est mon mécanisme de défense préféré.",
+    "blanks": 1
+  },
+  {
+    "id": 124,
+    "text": "Après 5 bières je commence à _____.",
+    "blanks": 1
+  },
+  {
+    "id": 125,
+    "text": "_____ ne devrait jamais être sur une pizza ?",
+    "blanks": 1
+  },
+  {
+    "id": 126,
+    "text": "Mon CV mentionne une expertise en _____.",
+    "blanks": 1
+  },
+  {
+    "id": 127,
+    "text": "_____ a ruiné mon rendez-vous Tinder.",
+    "blanks": 1
+  },
+  {
+    "id": 128,
+    "text": "Qu'est-ce qui est plus effrayant qu'un clown ?",
+    "blanks": 1
+  },
+  {
+    "id": 129,
+    "text": "Mon odeur préférée est extrait de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 130,
+    "text": "_____ est la raison pour laquelle je suis en thérapie.",
+    "blanks": 1
+  },
+  {
+    "id": 131,
+    "text": "J'ai trouvé _____ dans le casier de mon frère ?",
+    "blanks": 1
+  },
+  {
+    "id": 132,
+    "text": "Mon historique de navigation révèle mon obsession pour _____.",
+    "blanks": 1
+  },
+  {
+    "id": 133,
+    "text": "_____ serait un excellent nom de groupe de death metal.",
+    "blanks": 1
+  },
+  {
+    "id": 134,
+    "text": "_____ serait le nom de mon organisation terroriste.",
+    "blanks": 1
+  },
+  {
+    "id": 135,
+    "text": "Mon testament légue _____ à mes enfants.",
+    "blanks": 1
+  },
+  {
+    "id": 136,
+    "text": "_____ m'a été prescrit par mon médecin pour traiter _____.",
+    "blanks": 2
+  },
+  {
+    "id": 137,
+    "text": "La véritable raison de ma démission était _____.",
+    "blanks": 1
+  },
+  {
+    "id": 138,
+    "text": "_____ : maintenant en format familial !",
+    "blanks": 1
+  },
+  {
+    "id": 139,
+    "text": "_____ me fait pleurer dans la douche ?",
+    "blanks": 1
+  },
+  {
+    "id": 140,
+    "text": "Mon dealer vend désormais _____.",
+    "blanks": 1
+  },
+  {
+    "id": 141,
+    "text": "_____ a changé ma perspective sur la vie.",
+    "blanks": 1
+  },
+  {
+    "id": 142,
+    "text": "_____ m'a donné gout à l'aventure.",
+    "blanks": 1
+  },
+  {
+    "id": 143,
+    "text": "Mon inscription sur le registre des délinquants sexuels est due à _____.",
+    "blanks": 1
+  },
+  {
+    "id": 144,
+    "text": "_____ m'a rendu raciste.",
+    "blanks": 1
+  },
+  {
+    "id": 145,
+    "text": "j'ai promis de ne jamais  _____.",
+    "blanks": 1
+  },
+  {
+    "id": 146,
+    "text": "Heureusement qu'en france _____ est légal.",
+    "blanks": 1
+  },
+  {
+    "id": 147,
+    "text": "_____ et _____ : ne les mélangez jamais.",
+    "blanks": 2
+  },
+  {
+    "id": 148,
+    "text": "Mon plan de retraite repose sur _____.",
+    "blanks": 1
+  },
+  {
+    "id": 149,
+    "text": "_____ est ma honte secrète.",
+    "blanks": 1
+  },
+  {
+    "id": 150,
+    "text": "_____ a gâché le baptême ?",
+    "blanks": 1
+  },
+  {
+    "id": 151,
+    "text": "Mon dernier rêve mettait en scène _____.",
+    "blanks": 1
+  },
+  {
+    "id": 152,
+    "text": "_____ devrait être enseigné à l'école.",
+    "blanks": 1
+  },
+  {
+    "id": 153,
+    "text": "_____ me fait me sentir comme un roi.",
+    "blanks": 1
+  },
+  {
+    "id": 154,
+    "text": "La nouvelle vidéo de Norman: Comment  _____.",
+    "blanks": 1
+  },
+  {
+    "id": 155,
+    "text": "_____ m'a coûté mon permis de conduire.",
+    "blanks": 1
+  },
+  {
+    "id": 156,
+    "text": "_____ n'aurait jamais du être une saveur de glace ?",
+    "blanks": 1
+  },
+  {
+    "id": 157,
+    "text": "Mon patron m'a surpris en train de _____.",
+    "blanks": 1
+  },
+  {
+    "id": 158,
+    "text": "_____ : meilleur que le sexe.",
+    "blanks": 1
+  },
+  {
+    "id": 159,
+    "text": "Qu'est-ce qui transforme une fête d'enfants en cauchemar ?",
+    "blanks": 1
+  },
+  {
+    "id": 160,
+    "text": "Mon mémoire de maîtrise portait sur _____.",
+    "blanks": 1
+  },
+  {
+    "id": 161,
+    "text": "_____ prouve que Dieu nous a abandonnés.",
+    "blanks": 1
+  },
+  {
+    "id": 162,
+    "text": "_____ me donne envie de rétablir le communisme.",
+    "blanks": 1
+  },
+  {
+    "id": 163,
+    "text": "Ma nouvelle religion vénère _____.",
+    "blanks": 1
+  },
+  {
+    "id": 164,
+    "text": "_____ a détruit ma réputation.",
+    "blanks": 1
+  },
+  {
+    "id": 165,
+    "text": "Qu'est-ce qui rend les réunions de famille insupportables ?",
+    "blanks": 1
+  },
+  {
+    "id": 166,
+    "text": "Mon casier judiciaire inclut _____.",
+    "blanks": 1
+  },
+  {
+    "id": 167,
+    "text": "_____ combiné avec _____ crée une arme de destruction massive.",
+    "blanks": 2
+  },
+  {
+    "id": 168,
+    "text": "Qu'est-ce qui me fait remettre en question mes choix de vie ?",
+    "blanks": 1
+  },
+  {
+    "id": 169,
+    "text": "Le nouveau restaurant thématique : Chez _____.",
+    "blanks": 1
+  },
+  {
+    "id": 170,
+    "text": "_____ est ma plus grande peur irrationnelle.",
+    "blanks": 1
+  },
+  {
+    "id": 171,
+    "text": "Qu'est-ce qui aurait dû rester dans le passé ?",
+    "blanks": 1
+  },
+  {
+    "id": 172,
+    "text": "Mon addiction à _____ coûte 500€ par mois.",
+    "blanks": 1
+  },
+  {
+    "id": 173,
+    "text": "_____ : meilleur avec du fromage.",
+    "blanks": 1
+  },
+  {
+    "id": 174,
+    "text": "_____ m'a fait perdre ma virginité.",
+    "blanks": 1
+  },
+  {
+    "id": 175,
+    "text": "Ma biographie non autorisée révélera mon implication dans _____.",
+    "blanks": 1
   }
 ]
