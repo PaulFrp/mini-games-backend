@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import re
 from .db import init_db
 from contextlib import asynccontextmanager
-from .routes import general, room, voting, meme, websockets
+from .routes import general, room, voting, meme, websockets, cah
 from .tasks.cleanup import cleanup_empty_rooms_task
 import asyncio
 import os
@@ -70,4 +70,5 @@ app.include_router(general.router)
 app.include_router(room.router)
 app.include_router(voting.router, prefix="/voting")
 app.include_router(meme.router, prefix ="/meme")
+app.include_router(cah.router, prefix="/cah")
 app.include_router(websockets.router)
