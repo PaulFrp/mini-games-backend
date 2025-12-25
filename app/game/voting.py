@@ -40,6 +40,7 @@ def game_status_logic(room_id, request, db):
             "question": game["question"],
             "players": game["players"],
             "votes_count": len(game["votes"]),
+            "voters": list(game["votes"].keys()),
             "remaining": int(game["duration"] - (now - game["start_time"]))
         }
 
@@ -51,11 +52,12 @@ def game_status_logic(room_id, request, db):
         winners = [p for p, c in vote_counts.items() if c == max_votes]
         game["finished"] = True
         game["winners"] = winners
+        game["vote_counts"] = vote_counts
 
     return {
         "status": "finished",
         "winners": game.get("winners", []),
-        "votes_count": game.get("votes", {}),
+        "vote_counts": game.get("vote_counts", {}),
         "can_proceed": player and client_id == room_creator,
     }
 
