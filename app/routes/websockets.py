@@ -195,6 +195,14 @@ async def cah_websocket_endpoint(websocket: WebSocket, room_id: int):
     try:
         db = next(get_db())
 
+        # Proactively push current status on connect to avoid race conditions on Heroku
+        try:
+            status = await cah.get_game_status_logic(room_id, client_id, db)
+            await websocket.send_json({"type": "game_update", **status})
+        except Exception as e:
+            # Don't fail the connection if status fetch hiccups
+            await websocket.send_json({"type": "game_update", "status": "no_game"})
+
         while True:
             data = await websocket.receive_text()
             message = json.loads(data)
