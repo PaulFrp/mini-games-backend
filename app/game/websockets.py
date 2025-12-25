@@ -20,7 +20,12 @@ class ConnectionManager:
                 del self.active_connections[room_id]
 
     async def broadcast(self, room_id: int, message: dict):
-        for connection in self.active_connections.get(room_id, []):
-            await connection.send_json(message)
+        connections = self.active_connections.get(room_id, [])
+        print(f"[BROADCAST] Sending to {len(connections)} connections in room {room_id}: {message.get('type', 'unknown')}")
+        for connection in connections:
+            try:
+                await connection.send_json(message)
+            except Exception as e:
+                print(f"[BROADCAST] Failed to send to connection: {e}")
 
 manager = ConnectionManager()

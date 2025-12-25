@@ -40,6 +40,8 @@ async def start_game(room_id: int, x_client_id: str = Header(None), db=Depends(g
     start_cah_game(room_id, usernames, room.creator)
     
     game = games[room_id]
+    
+    # Broadcast to all players
     broadcast_data = {
         "type": "game_update",
         "status": "playing",
@@ -52,6 +54,8 @@ async def start_game(room_id: int, x_client_id: str = Header(None), db=Depends(g
     }
     
     print(f"[START_CAH_GAME] Broadcasting to room {room_id}")
+    active_connections = len(manager.active_connections.get(room_id, []))
+    print(f"[START_CAH_GAME] Active WebSocket connections in room {room_id}: {active_connections}")
     await manager.broadcast(room_id, broadcast_data)
     
     return {"status": "game started"}
