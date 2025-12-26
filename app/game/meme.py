@@ -2,6 +2,7 @@ import json, random, time
 from app.models import Player, Room
 from datetime import datetime, timezone
 from app.game.websockets import manager
+from app.game.meme_timer import start_meme_timer, stop_meme_timer
 from app.db import get_db
 import asyncio
 import logging
@@ -27,6 +28,9 @@ def start_meme_game(room_id: int, players: list[str], creator_id: str):
         "points":{},
         "submissions": {}
     }
+    
+    # Start background timer to handle phase transitions
+    start_meme_timer(room_id, games)
 
 # app/game/meme.py
 
@@ -64,45 +68,8 @@ async def get_game_status_logic(room_id, client_id, db):
             max_votes = max(vote_counts.values(), default=0)
             winners = [p for p, c in vote_counts.items() if c == max_votes]
     
-    
-
-    # === Phase switching logic ===
-    if game["phase"] == "captioning" and remaining <= 0:
-        game["phase"] = "voting"
-        game["start_time"] = now
-        game["duration"] = 60
-        remaining = game["duration"]
-        # 🔔 Broadcast voting phase to all
-        # Resolve usernames from database
-        players_in_room = db.query(Player).filter_by(room_id=room_id).all()
-        player_id_to_username = {p.user_id: p.username for p in players_in_room}
-        
-        await manager.broadcast(room_id, {
-            "type": "game_update",
-            "status": "voting",
-            "submissions": [
-                {
-                    "user_id": player_id,
-                    "meme": sub["meme"],
-                    "captions": sub["captions"],
-                    "username": player_id_to_username.get(player_id, player_id)
-                }
-                for player_id, sub in game["submissions"].items()
-            ],
-            "remaining": remaining,
-        })
-
-    elif game["phase"] == "voting" and remaining <= 0:
-        game["phase"] = "results"
-        # 🔔 Broadcast results
-        await manager.broadcast(room_id, {
-            "type": "game_update",
-            "status": "results",
-            "winners": winners,
-            "votes": game.get("votes", {}),
-            "captions": game.get("captions", {}),
-            "can_proceed": player and client_id == room_creator,
-        })
+    # NOTE: Phase transitions are handled by the background meme_timer, not here
+    # This prevents race conditions where different players see different states
 
     # === Phase responses ===
     if "submissions" not in game:

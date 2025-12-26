@@ -2,6 +2,7 @@ import json, random, time
 from app.models import Player, Room
 from datetime import datetime, timezone
 from app.game.websockets import manager
+from app.game.game_timer import start_game_timer, stop_game_timer
 from app.db import get_db
 import asyncio
 import logging
@@ -49,9 +50,12 @@ def start_cah_game(room_id: int, players: list[str], creator_id: str):
         "card_czar": players[0],  # First player is czar, rotates each round
         "czar_index": 0
     }
+    
+    # Start background timer to handle phase transitions
+    start_game_timer(room_id, games)
 
 async def get_game_status_logic(room_id, client_id, db):
-    """Get current game status for a player"""
+    """Get current game status for a player (NO PHASE TRANSITIONS - handled by timer)"""
     player = db.query(Player).filter_by(user_id=client_id, room_id=room_id).first()
     room = db.query(Room).filter_by(id=room_id).first()
     room_creator = room.creator if room else None
@@ -129,79 +133,8 @@ async def get_game_status_logic(room_id, client_id, db):
             if player_name != game["card_czar"]
         ]
     
-    # Phase transitions
-    if game["phase"] == "playing":
-        # Check if all non-czar players have submitted
-        non_czar_players = [p for p in game["players"] if p != game["card_czar"]]
-        all_submitted = all(p in game["submissions"] for p in non_czar_players)
-        
-        if all_submitted or remaining <= 0:
-            # Transition to voting phase
-            game["phase"] = "voting"
-            game["start_time"] = now
-            game["duration"] = 30  # 30 seconds to vote
-            remaining = game["duration"]
-            
-            # Broadcast to all players
-            players_in_room = db.query(Player).filter_by(room_id=room_id).all()
-            
-            submission_list = [
-                {
-                    "player": player_name,
-                    "cards": cards,
-                    "username": player_name
-                }
-                for player_name, cards in game["submissions"].items()
-                if player_name != game["card_czar"]
-            ]
-            random.shuffle(submission_list)
-            
-            await manager.broadcast(room_id, {
-                "type": "game_update",
-                "status": "voting",
-                "submissions": submission_list,
-                "remaining": remaining,
-                "current_question": game["current_question"],
-                "card_czar": game["card_czar"]
-        })
-        
-    elif game["phase"] == "voting" and remaining <= 0:
-        # Transition to results phase
-        game["phase"] = "results"
-        
-        # Count votes and award points
-        vote_counts = {}
-        for voted_for in game["votes"].values():
-            vote_counts[voted_for] = vote_counts.get(voted_for, 0) + 1
-        
-        # Find winner and award point
-        if vote_counts:
-            max_votes = max(vote_counts.values())
-            winners = [p for p, v in vote_counts.items() if v == max_votes]
-            if len(winners) == 1:
-                game["scores"][winners[0]] += 1
-                round_winner = winners[0]
-            else:
-                round_winner = None
-        else:
-            round_winner = None
-        
-        await manager.broadcast(room_id, {
-            "type": "game_update",
-            "status": "results",
-            "round_winner": round_winner,
-            "scores": game["scores"],
-            "vote_counts": vote_counts,
-            "submissions": [
-                {
-                    "player": player_name,
-                    "cards": cards,
-                    "votes": vote_counts.get(player_name, 0)
-                }
-                for player_name, cards in game["submissions"].items()
-                if player_name != game["card_czar"]
-            ]
-        })
+    # NOTE: Phase transitions are handled by the background game_timer, not here
+    # This prevents race conditions where different players see different states
     
     return response
 
@@ -290,6 +223,8 @@ async def next_round_logic(room_id, db):
     max_score = max(game["scores"].values()) if game["scores"] else 0
     if max_score >= 5:
         winners = [p for p, s in game["scores"].items() if s == max_score]
+        # Stop the timer when game ends
+        stop_game_timer(room_id)
         await manager.broadcast(room_id, {
             "type": "game_over",
             "winners": winners,
